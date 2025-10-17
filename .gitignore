@@ -1,0 +1,22 @@
+# Nunca versionar variáveis de ambiente
+.env
+*.env
+.env.*
+
+# (opcional) evitar arquivos locais
+__pycache__/
+*.db
+*.sqlite
+
+# ambiente virtual
+venv/
+
+# caches / compilações
+__pycache__/
+
+# bancos e logs locais
+*.db
+*.sqlite
+*.log
+
+!.env.example

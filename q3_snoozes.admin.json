@@ -1,0 +1,18 @@
+[
+  {
+    "merchant_id": "4e297435-1723-45c9-a08b-16c2fb5ac692",
+    "kind": "item",
+    "id": "f8d45889-4471-4d89-b3a8-e77c100ce33a",
+    "name": "Strognoff de Fango",
+    "until": 1757242800,
+    "catalog_context": "DEFAULT"
+  },
+  {
+    "merchant_id": "4e297435-1723-45c9-a08b-16c2fb5ac692",
+    "kind": "item",
+    "id": "6cd5a0b3-f448-43b2-9762-4a99b9ee476a",
+    "name": "Strognoff de Carne",
+    "until": 1757242800,
+    "catalog_context": "DEFAULT"
+  }
+]

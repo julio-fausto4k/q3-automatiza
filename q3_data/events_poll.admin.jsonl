@@ -1,0 +1,1 @@
+{"count": 54, "winner": "https://merchant-api.ifood.com.br/order/v1.0/events:polling", "dbg": {"tried": [{"url": "https://merchant-api.ifood.com.br/order/v1.0/events:polling", "code": 200}]}, "kind": "events_poll", "ts": 1756768601, "app": {"version": "1.2.0-analytics"}}
