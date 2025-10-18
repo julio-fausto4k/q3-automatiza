@@ -53,3 +53,6 @@ def _img_url_from_path(path: str | None) -> str | None:
     # Fallback: static catalog base
     base = os.getenv("CATALOG_STATIC_BASE") or "https://merchant-api.ifood.com.br/catalog/static"
     return f"{base.rstrip('/')}/{s.lstrip('/')}"
+
+def _log(msg: str) -> None:
+    print(f"[Q3] {msg}")
