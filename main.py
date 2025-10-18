@@ -67,6 +67,41 @@ from catalog_optimizer import collect_catalog_parallel
 
 load_dotenv(override=True)
 
+#======================================================================#
+
+# Replace the existing utility functions and constants with imports
+from utils.constants import (
+    CATALOG_BASE, IF_BASE, BASE, AUTH_URL, 
+    SESSION_DEFAULTS, ADDITIONAL_SESSION_KEYS
+)
+from utils.helpers import (
+    safe_json, cache_bust, _is_uuid, build_url, _c, _img_url_from_path
+)
+from utils.formatters import format_currency, format_percentage, sanitize_text, truncate_text
+from utils.validators import _env_set, _env_int, _env_float, _flag, validate_email
+from utils.image import optimize_image, get_image_dimensions, is_valid_image
+from utils.session import (
+    force_logout_and_clear_all, reset_all_caches, init_session_defaults,
+    get_session_value, set_session_value, clear_session_keys
+)
+
+# Remove the original utility function definitions and replace them with the imports above
+# The original functions that should be removed from main.py are:
+# - safe_json()
+# - cache_bust() 
+# - _is_uuid()
+# - build_url()
+# - _c()
+# - _img_url_from_path()
+# - optimize_image()
+# - force_logout_and_clear_all()
+# - _reset_all_caches() (rename to reset_all_caches)
+# - _env_set(), _env_int(), _env_float(), _flag()
+# - All constants like CATALOG_BASE, IF_BASE, BASE, AUTH_URL, DEFAULTS, etc.
+
+# Update the session initialization part:
+init_session_defaults()
+
 # ============================ FUNÇÕES DE AUTENTICAÇÃO (CRÍTICAS) ============================
 # ✅ Estas funções DEVEM estar no início do arquivo, logo após os imports
 
