@@ -49,28 +49,48 @@ class IFoodAPIClient:
             print(f"Error refreshing token: {e}")
             return None
     
-    def make_request(self, method: str, endpoint: str, headers: Optional[Dict] = None, **kwargs) -> Optional[Dict]:
+    from typing import Optional, Dict, Any  # garanta que estes imports existam
+
+    def make_request(
+        self,
+        method: str,
+        endpoint: str,
+        headers: Optional[Dict[str, Any]] = None,
+        **kwargs,
+    ) -> Optional[Dict[str, Any]]:
         """Make authenticated request to iFood API."""
-        if not headers:
+        if headers is None:
             headers = {}
-        
-        # Add authorization header if token available
+
+        # Authorization
         token = st.session_state.get("token")
         if token:
             headers["Authorization"] = f"Bearer {token}"
-        
-        url = build_url(endpoint)
-        
+
+        # Montagem correta da URL:
+        # - Se já vier absoluta, usa como está
+        # - Se for do catálogo, usa catalog_base
+        # - Caso contrário, usa a base geral
+        if isinstance(endpoint, str) and endpoint.startswith("http"):
+            url = endpoint
+        elif endpoint.startswith("/catalog"):
+            url = build_url(self.catalog_base, endpoint)
+        else:
+            url = build_url(self.base_url, endpoint)
+
         try:
-            response = http_client.request(method, url, headers=headers, **kwargs)
-            if response.status_code in [200, 201, 204]:
-                return response.json() if response.content else {}
-            elif response.status_code == 401:
-                # Token expired, trigger refresh
+            resp = http_client.request(method, url, headers=headers, **kwargs)
+            if resp.status_code in (200, 201):
+                return resp.json() if resp.content else {}
+            if resp.status_code == 204:
+                return {}  # No Content
+            if resp.status_code == 401:
+                # Token expirado
                 return {"error": "unauthorized", "status_code": 401}
-            return {"error": f"HTTP {response.status_code}", "status_code": response.status_code}
+            return {"error": f"HTTP {resp.status_code}", "status_code": resp.status_code}
         except Exception as e:
             return {"error": str(e)}
+
     
     def _c(self, path: str) -> str:
         """Build catalog API URL."""
